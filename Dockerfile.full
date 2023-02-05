@@ -2,11 +2,11 @@
 # Released under the MIT license
 # https://opensource.org/licenses/MIT
 
-FROM ubuntu
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DEBCONF_NOWARNINGS=yes
-ENV YEAR "2021"
+ENV YEAR "2022"
 ENV PATH="/usr/local/texlive/${YEAR}/bin/x86_64-linux:$PATH"
 
 RUN apt-get update \
