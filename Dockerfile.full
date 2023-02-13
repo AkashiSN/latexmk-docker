@@ -11,6 +11,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV DEBCONF_NOWARNINGS=yes
 ENV YEAR="2022"
 ENV PATH="/usr/local/texlive/${YEAR}/bin/x86_64-linux:$PATH"
+ENV TEXMF_DIST="/usr/local/texlive/${YEAR}/texmf-dist"
 
 RUN <<EOT
 apt-get update
@@ -49,6 +50,14 @@ rm -r /tmp/install-tl-unx
 
 tlmgr update --self
 tlmgr update --all --reinstall-forcibly-removed
+
+# Additional package
+# jlisting
+wget -O - https://osdn.net/dl/mytexpert/jlisting.sty.bz2 \
+    | bzip2 -d > ${TEXMF_DIST}/tex/latex/listing/jlisting.sty
+
+# Reload sty file
+mktexlsr
 
 mkdir /tmp/latexmk
 EOT
