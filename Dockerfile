@@ -69,7 +69,7 @@ tlmgr update --all --reinstall-forcibly-removed
 # Additional package
 # jlisting
 wget -O - https://osdn.net/dl/mytexpert/jlisting.sty.bz2 \
-    | bzip2 -d > ${TEXMF_DIST}/tex/latex/listings/jlisting.sty
+    | bzip2 -d > ${TEXMF_DIST}/tex/latex/listing/jlisting.sty
 
 # Reload sty file
 mktexlsr
