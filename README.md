@@ -1,7 +1,10 @@
-# :whale: arkark/latexmk
+# :whale: akashisn/latexmk
 
-[![Docker build](https://img.shields.io/docker/cloud/build/arkark/latexmk.svg)](https://hub.docker.com/r/arkark/latexmk/)
-[![Docker automated build](https://img.shields.io/docker/cloud/automated/arkark/latexmk.svg)](https://hub.docker.com/r/arkark/latexmk/)
+Original author: https://github.com/arkark/latexmk-docker
+
+[![Docker build](https://github.com/AkashiSN/latexmk-docker/actions/workflows/latexmk.yml/badge.svg)](https://github.com/AkashiSN/latexmk-docker/actions/workflows/latexmk.yml)
+
+[![Docker image](https://dockeri.co/image/akashisn/latexmk)](https://hub.docker.com/r/akashisn/latexmk)
 
 Useful LaTeX environment on Docker.
 
@@ -14,12 +17,12 @@ Useful LaTeX environment on Docker.
 ## Installation
 
 ```console
-$ docker pull arkark/latexmk
+$ docker pull akashisn/latexmk
 ```
 
 - Docker image size: **2.12GB**
 
-If you want to install all packages of TeX Live, pull `arkark/latexmk:full` whose size is 4.36GB :warning:.
+If you want to install all packages of TeX Live, pull `akashisn/latexmk:full` whose size is 4.36GB :warning:.
 
 ## Usage
 
@@ -27,15 +30,15 @@ If you want to install all packages of TeX Live, pull `arkark/latexmk:full` whos
 2. Move to the directory.
 3. Execute:
     ```console
-    $ docker run --rm -it -v $PWD:/workdir -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) arkark/latexmk
+    $ docker run --rm -it -v $PWD:/workdir -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) akashisn/latexmk
     ```
     If you use Mac, execute:
     ```console
-    $ docker run --rm -it -v $PWD:/workdir arkark/latexmk
+    $ docker run --rm -it -v $PWD:/workdir akashisn/latexmk
     ```
     If you use Windows, execute in PowerShell:
     ```console
-    > docker run --rm -it -v "$(pwd):/workdir" arkark/latexmk
+    > docker run --rm -it -v "$(pwd):/workdir" akashisn/latexmk
     ```
 4. Edit latex files and preview `out/main.pdf` while monitoring a latexmk's log.
 5. Press `Ctrl+C` to exit.
@@ -62,13 +65,13 @@ $pvc_view_file_via_temporary = 0;
 Latexdiff:
 
 ```console
-$ docker run --rm -it -v $PWD:/workdir -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) arkark/latexmk latexdiff-vc <ARGS>
+$ docker run --rm -it -v $PWD:/workdir -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) akashisn/latexmk latexdiff-vc <ARGS>
 ```
 
 Colored latexmk with a root filename:
 
 ```console
-$ docker run --rm -it -v $PWD:/workdir -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) arkark/latexmk latexmk-ext <FILE_NAME>
+$ docker run --rm -it -v $PWD:/workdir -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) akashisn/latexmk latexmk-ext <FILE_NAME>
 ```
 
 ## Links
