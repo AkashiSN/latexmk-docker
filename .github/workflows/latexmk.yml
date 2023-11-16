@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         flavor: [normal, full]
-        version: ['2022', '2023']
+        version: ['2023']
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,16 +32,12 @@ jobs:
         run: |
           if [ "${{ matrix.flavor }}" == "full" ]; then
             echo "build_file=Dockerfile.full" >> $GITHUB_ENV
-            tag_flavor=":full"
-            image_tag=":${{ matrix.version }}-full"
+            image_versioned_tag=":${{ matrix.version }}-full"
+            image_tag=":full"
           else
             echo "build_file=Dockerfile" >> $GITHUB_ENV
-            tag_flavor=""
-            image_tag=":${{ matrix.version }}"
-          fi
-          if [ "${{ matrix.version }}" == "2023" ]; then
-            latest_tag="${{ secrets.DOCKERHUB_USER }}/latexmk${tag_flavor}"
-            image_tag="$image_tag,$latest_tag"
+            image_versioned_tag=":${{ matrix.version }}"
+            image_tag=""
           fi
           echo "image_tag=$image_tag" >> $GITHUB_ENV
 
@@ -53,6 +49,7 @@ jobs:
           build-args: |
             TEXLIVE_VERSION=${{ matrix.version }}
           tags: |
+            ${{ secrets.DOCKERHUB_USER }}/latexmk${{ env.image_versioned_tag }}
             ${{ secrets.DOCKERHUB_USER }}/latexmk${{ env.image_tag }}
           platforms: linux/amd64,linux/arm64
           push: true
