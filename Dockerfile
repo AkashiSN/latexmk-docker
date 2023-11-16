@@ -8,12 +8,11 @@
 FROM ubuntu:22.04
 
 SHELL ["/bin/bash", "-e", "-c"]
-ARG TEXLIVE_VERSION="2023"
+ARG YEAR="2023"
 ENV DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NOWARNINGS=yes \
-    PATH="/usr/local/texlive/${TEXLIVE_VERSION}/bin/x86_64-linux:$PATH" \
-    PATH="/usr/local/texlive/${TEXLIVE_VERSION}/bin/aarch64-linux:$PATH" \
-    TEXMF_DIST="/usr/local/texlive/${TEXLIVE_VERSION}/texmf-dist" \
+    YEAR=${YEAR} \
+    PATH="/usr/local/texlive/${YEAR}/bin/x86_64-linux:/usr/local/texlive/${YEAR}/bin/aarch64-linux:${PATH}" \
     CTAN_MIRROR="https://ftp.jaist.ac.jp/pub/CTAN"
 
 RUN <<EOT
@@ -34,7 +33,7 @@ rm -rf /var/lib/apt/lists/*
 pip3 install pygments
 
 mkdir /tmp/install-tl-unx
-wget -O - ftp://tug.org/historic/systems/texlive/${TEXLIVE_VERSION}/install-tl-unx.tar.gz \
+wget -O - ftp://tug.org/historic/systems/texlive/${YEAR}/install-tl-unx.tar.gz \
     | tar -xzv -C /tmp/install-tl-unx --strip-components=1
 
 cat << EOS >> /tmp/install-tl-unx/texlive.profile
@@ -75,7 +74,7 @@ COPY --chmod=755 bin/entrypoint.sh /usr/local/bin/
 COPY --chmod=755 bin/latexmk-ext /usr/local/bin/
 
 # Additional packages
-COPY packages/texmf-dist/ ${TEXMF_DIST}
+COPY packages/texmf-dist/ /usr/local/texlive/${YEAR}/texmf-dist
 
 # Reload sty file
 RUN mktexlsr

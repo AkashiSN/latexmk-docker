@@ -47,7 +47,7 @@ jobs:
           context: ./
           file: ./${{ env.build_file }}
           build-args: |
-            TEXLIVE_VERSION=${{ matrix.version }}
+            YEAR=${{ matrix.version }}
           tags: |
             ${{ secrets.DOCKERHUB_USER }}/latexmk${{ env.image_versioned_tag }}
             ${{ secrets.DOCKERHUB_USER }}/latexmk${{ env.image_tag }}
