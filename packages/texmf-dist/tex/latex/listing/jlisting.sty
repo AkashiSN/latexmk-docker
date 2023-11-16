@@ -89,7 +89,7 @@
    \ifeof\lst@inputfile\else
       \expandafter\lst@get@filecontents@loop
    \fi}
-%%% [$B$3$N=hM}$b!$AjEv6/0z$G$9!%(B]
+%%% [この処理も，相当強引です．]
 \def\lst@BOLGobble{%
    \ifnum\lst@gobble>\z@
       \@tempcnta\lst@gobble\relax
@@ -129,15 +129,15 @@
    \fi
 }
 %
-%    \begin{$B=$@5;v9`(B}{1.3}
-% $B$A$g$C$H$7$?=$@5(B
+%    \begin{修正事項}{1.3}
+% ちょっとした修正
 \gdef\lst@breakProcessOther#1{\lst@ProcessOther#1}
-% $B%=!<%9%3!<%IL\<!$K$*$1$kJ8;z$HHV9f$N6u$-(B
+% ソースコード目次における文字と番号の空き
 \let \l@lstlisting = \l@figure
-% $B%-%c%W%7%g%s$H%=!<%9%3!<%IL\<!$KBP$9$kF|K\8lBP1~(B
-\def\lstlistingname{$B%=!<%9%3!<%I(B}
-\def\lstlistlistingname{$B%=!<%9%3!<%IL\<!(B}
-%    \end{$B=$@5;v9`(B}
+% キャプションとソースコード目次に対する日本語対応
+\def\lstlistingname{ソースコード}
+\def\lstlistlistingname{ソースコード目次}
+%    \end{修正事項}
 \endinput
 % 
 %#!platex
@@ -187,10 +187,10 @@
 \maketitle
 %\IfDvipdfmxDef
 
-\section{$B$A$g$C$H$7$?@bL@(B}% Short Description
+\section{ちょっとした説明}% Short Description
  
-$B1|B<@2I';a$N7G<(HD$N!VHFMQE*$JIbF0BN!W$H$$$&0lO"$N=q$-9~$_$+$i(B
-$BE>:\$7$^$7$?!#(B
+奥村晴彦氏の掲示板の「汎用的な浮動体」という一連の書き込みから
+転載しました。
 
 \begin{quote}
  \url{http://http://cise.edu.mie-u.ac.jp/~okumura/texfaq/qa/21172.html}\\
@@ -199,18 +199,18 @@
  \url{http://http://cise.edu.mie-u.ac.jp/~okumura/texfaq/qa/21197.html}
 \end{quote}
 
- Copyright $B$O5H1JE/H~;a$K$"$k$N$@$H;W$$$^$9!%(B
+ Copyright は吉永哲美氏にあるのだと思います．
  
-\section{$B99?7MzNr(B}% ChageLogs
+\section{更新履歴}% ChageLogs
 
 \begin{description}
  \item[ver.~0.1 (2004/03/24)]
-   $B$H$j$"$($:8x3+!%(B
+   とりあえず公開．
  \item[ver.~0.2 (2006/02/20)] 
-   \verb|\lst@breakProcessOther| $BL?Na$NDj5A$NDI2C!%(B
+   \verb|\lst@breakProcessOther| 命令の定義の追加．
 \end{description}
 
-\section{$B%=!<%9%3!<%I(B}
+\section{ソースコード}
 \par\narrowbaselines
 \verbatiminput{jlisting.sty}
 \end{document}

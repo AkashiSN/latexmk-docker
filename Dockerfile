@@ -75,7 +75,7 @@ COPY --chmod=755 bin/entrypoint.sh /usr/local/bin/
 COPY --chmod=755 bin/latexmk-ext /usr/local/bin/
 
 # Additional packages
-COPY packages/ ${TEXMF_DIST}
+COPY packages/texmf-dist/ ${TEXMF_DIST}
 
 # Reload sty file
 RUN mktexlsr
