@@ -13,6 +13,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NOWARNINGS=yes \
     YEAR="${TEXLIVE_VERSION}" \
     PATH="/usr/local/texlive/${YEAR}/bin/x86_64-linux:$PATH" \
+    PATH="/usr/local/texlive/${YEAR}/bin/aarch64-linux:$PATH" \
     TEXMF_DIST="/usr/local/texlive/${YEAR}/texmf-dist"
 
 RUN <<EOT
