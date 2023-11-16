@@ -11,37 +11,48 @@ jobs:
     strategy:
       matrix:
         flavor: [normal, full]
+        version: ['2022', '2023']
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Login to DockerHub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Set build target (normal)
-        if: matrix.flavor == 'normal'
+      - name: Determine Image Tag and Dockerfile
         run: |
-          echo "build_file=Dockerfile" >> $GITHUB_ENV
-          echo "image_tag=" >> $GITHUB_ENV
-
-      - name: Set build target (full)
-        if: matrix.flavor == 'full'
-        run: |
-          echo "build_file=Dockerfile.full" >> $GITHUB_ENV
-          echo "image_tag=:full" >> $GITHUB_ENV
+          if [ "${{ matrix.flavor }}" == "full" ]; then
+            echo "build_file=Dockerfile.full" >> $GITHUB_ENV
+            tag_flavor=":full"
+            image_tag=":${{ matrix.version }}-full"
+          else
+            echo "build_file=Dockerfile" >> $GITHUB_ENV
+            tag_flavor=""
+            image_tag=":${{ matrix.version }}"
+          fi
+          if [ "${{ matrix.version }}" == "2023" ]; then
+            latest_tag="${{ secrets.DOCKERHUB_USER }}/latexmk${tag_flavor}"
+            image_tag="$image_tag,$latest_tag"
+          fi
+          echo "image_tag=$image_tag" >> $GITHUB_ENV
 
       - name: Build and push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: ./
           file: ./${{ env.build_file }}
+          build-args: |
+            TEXLIVE_VERSION=${{ matrix.version }}
           tags: |
             ${{ secrets.DOCKERHUB_USER }}/latexmk${{ env.image_tag }}
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: true

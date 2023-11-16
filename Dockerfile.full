@@ -1,17 +1,19 @@
 # syntax = docker/dockerfile:1.4
 
 # Copyright (c) 2018-present Ark
+# Copyright (c) 2023 AkashiSN
 # Released under the MIT license
 # https://opensource.org/licenses/MIT
 
 FROM ubuntu:22.04
 
 SHELL ["/bin/bash", "-e", "-c"]
-ENV DEBIAN_FRONTEND=noninteractive
-ENV DEBCONF_NOWARNINGS=yes
-ENV YEAR="2022"
-ENV PATH="/usr/local/texlive/${YEAR}/bin/x86_64-linux:$PATH"
-ENV TEXMF_DIST="/usr/local/texlive/${YEAR}/texmf-dist"
+ARG TEXLIVE_VERSION="2023"
+ENV DEBIAN_FRONTEND=noninteractive \
+    DEBCONF_NOWARNINGS=yes \
+    YEAR="${TEXLIVE_VERSION}" \
+    PATH="/usr/local/texlive/${YEAR}/bin/x86_64-linux:$PATH" \
+    TEXMF_DIST="/usr/local/texlive/${YEAR}/texmf-dist"
 
 RUN <<EOT
 apt-get update
