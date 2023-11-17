@@ -48,8 +48,8 @@ jobs:
           file: ./${{ env.build_file }}
           build-args: |
             YEAR=${{ matrix.version }}
-          tags: |
-            ${{ secrets.DOCKERHUB_USER }}/latexmk${{ env.image_versioned_tag }}
-            ${{ secrets.DOCKERHUB_USER }}/latexmk${{ env.image_tag }}
-          platforms: linux/amd64,linux/arm64
+          tags:
+            - ${{ secrets.DOCKERHUB_USER }}/latexmk${{ env.image_versioned_tag }}
+            - ${{ secrets.DOCKERHUB_USER }}/latexmk${{ env.image_tag }}
+          platforms: linux/amd64,linux/arm64/v8
           push: true
