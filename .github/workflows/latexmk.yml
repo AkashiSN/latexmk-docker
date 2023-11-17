@@ -30,16 +30,19 @@ jobs:
 
       - name: Determine Image Tag and Dockerfile
         run: |
+          image_name="${{ secrets.DOCKERHUB_USER }}/latexmk"
           if [ "${{ matrix.flavor }}" == "full" ]; then
-            echo "build_file=Dockerfile.full" >> $GITHUB_ENV
+            build_file="Dockerfile.full"
             image_versioned_tag=":${{ matrix.version }}-full"
             image_tag=":full"
           else
-            echo "build_file=Dockerfile" >> $GITHUB_ENV
+            build_file="Dockerfile"
             image_versioned_tag=":${{ matrix.version }}"
             image_tag=""
           fi
-          echo "image_tag=$image_tag" >> $GITHUB_ENV
+          echo "build_file=$build_file" >> $GITHUB_ENV
+          echo "image_versioned_tag=$image_name$image_versioned_tag" >> $GITHUB_ENV
+          echo "image_tag=$image_name$image_tag" >> $GITHUB_ENV
 
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -48,8 +51,8 @@ jobs:
           file: ./${{ env.build_file }}
           build-args: |
             YEAR=${{ matrix.version }}
-          tags:
-            - ${{ secrets.DOCKERHUB_USER }}/latexmk${{ env.image_versioned_tag }}
-            - ${{ secrets.DOCKERHUB_USER }}/latexmk${{ env.image_tag }}
+          tags: |
+            ${{ env.image_versioned_tag }}
+            ${{ env.image_tag }}
           platforms: linux/amd64,linux/arm64/v8
           push: true
