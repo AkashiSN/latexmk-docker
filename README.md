@@ -20,9 +20,9 @@ Useful LaTeX environment on Docker.
 $ docker pull akashisn/latexmk
 ```
 
-- Docker image size: **2.12GB**
+- Docker image size: **3.09GB** (compress size: 1.40GB)
 
-If you want to install all packages of TeX Live, pull `akashisn/latexmk:full` whose size is 4.36GB :warning:.
+If you want to install all packages of TeX Live, pull `akashisn/latexmk:full` whose size is **4.11GB** (compress size: 1.94GB) :warning:.
 
 ## Usage
 
