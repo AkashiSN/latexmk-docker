@@ -33,6 +33,7 @@ apt-get update
 apt-get -y install --no-install-recommends \
     fontconfig \
     ghostscript \
+    git \
     gosu \
     perl \
     python3 \
