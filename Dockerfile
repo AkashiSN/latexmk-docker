@@ -22,7 +22,10 @@ FROM ubuntu:22.04
 
 SHELL ["/bin/bash", "-e", "-c"]
 ARG YEAR="2023"
-ENV DEBIAN_FRONTEND=noninteractive \
+ENV LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.UTF-8 \
+    DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NOWARNINGS=yes \
     YEAR="${YEAR}" \
     PATH="/usr/local/bin/texlive:${PATH}" \
