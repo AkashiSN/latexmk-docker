@@ -42,6 +42,11 @@ apt-get -y install --no-install-recommends \
     python3 \
     wget
 
+# for locale
+apt-get -y install --no-install-recommends \
+    locales
+locale-gen en_US.UTF-8
+
 # for latexindent
 apt-get -y install --no-install-recommends \
     libyaml-tiny-perl \
