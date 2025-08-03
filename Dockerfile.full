@@ -13,11 +13,12 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN <<EOT
 apt-get update
 apt-get -y install --no-install-recommends \
+    ca-certificates \
     curl \
     python3
 
-curl -sS https://bootstrap.pypa.io/get-pip.py | \
-    python3 - --break-system-packages
+curl -sS https://bootstrap.pypa.io/get-pip.py \
+    | python3 - --break-system-packages
 
 python3 -m pip install pygments --break-system-packages
 EOT
