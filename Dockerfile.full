@@ -5,7 +5,7 @@
 # Released under the MIT license
 # https://opensource.org/licenses/MIT
 
-FROM ubuntu:24.04 as install-pygments
+FROM ubuntu:24.04 AS install-pygments
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NOWARNINGS=yes
@@ -13,6 +13,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN <<EOT
 apt-get update
 apt-get -y install --no-install-recommends \
+    curl \
     python3
 
 curl -sS https://bootstrap.pypa.io/get-pip.py | \
