@@ -13,9 +13,12 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN <<EOT
 apt-get update
 apt-get -y install --no-install-recommends \
-    python3-pip
+    python3
 
-pip3 install pygments
+curl -sS https://bootstrap.pypa.io/get-pip.py | \
+    python3 - --break-system-packages
+
+python3 -m pip install pygments --break-system-packages
 EOT
 
 FROM ubuntu:24.04
