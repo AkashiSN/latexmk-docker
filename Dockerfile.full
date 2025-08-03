@@ -1,11 +1,11 @@
-# syntax = docker/dockerfile:1.6
+# syntax = docker/dockerfile:1
 
 # Copyright (c) 2018-present Ark
 # Copyright (c) 2023 AkashiSN
 # Released under the MIT license
 # https://opensource.org/licenses/MIT
 
-FROM ubuntu:22.04 as install-pygments
+FROM ubuntu:24.04 as install-pygments
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NOWARNINGS=yes
@@ -18,15 +18,16 @@ apt-get -y install --no-install-recommends \
 pip3 install pygments
 EOT
 
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 SHELL ["/bin/bash", "-e", "-c"]
-ARG YEAR="2023"
+ARG YEAR="2025"
 ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8 \
     DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NOWARNINGS=yes \
+    TZ=Asia/Tokyo \
     YEAR="${YEAR}" \
     PATH="/usr/local/bin/texlive:${PATH}" \
     CTAN_MIRROR="https://ftp.jaist.ac.jp/pub/CTAN"
@@ -46,6 +47,12 @@ apt-get -y install --no-install-recommends \
 apt-get -y install --no-install-recommends \
     locales
 locale-gen en_US.UTF-8
+
+# for timezone
+apt-get -y install --no-install-recommends \
+    tzdata
+ln -fs /usr/share/zoneinfo/$TZ /etc/localtime
+dpkg-reconfigure --frontend noninteractive tzdata
 
 # for latexindent
 apt-get -y install --no-install-recommends \
@@ -82,8 +89,8 @@ EOT
 
 # Copy pygments
 COPY --from=install-pygments /usr/local/bin/pygmentize /usr/local/bin/
-COPY --from=install-pygments /usr/local/lib/python3.10/dist-packages/pygments/ \
-                             /usr/local/lib/python3.10/dist-packages/pygments/
+COPY --from=install-pygments /usr/local/lib/python3.12/dist-packages/pygments/ \
+                             /usr/local/lib/python3.12/dist-packages/pygments/
 
 # Copy scripts
 COPY .latexmkrc /tmp/latexmk/
