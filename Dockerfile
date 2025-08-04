@@ -34,7 +34,7 @@ ENV LANG=en_US.UTF-8 \
     DEBCONF_NOWARNINGS=yes \
     YEAR="${YEAR}" \
     PATH="/usr/local/bin/texlive:${PATH}" \
-    CTAN_MIRROR="https://ftp.jaist.ac.jp/pub/CTAN"
+    CTAN_MIRROR="https://mirror.ctan.org/"
 
 RUN <<EOT
 apt-get update
