@@ -32,10 +32,10 @@ ENV LANG=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
     DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NOWARNINGS=yes \
-    TZ=Asia/Tokyo \
+    TZ="Asia/Tokyo" \
     YEAR="${YEAR}" \
     PATH="/usr/local/bin/texlive:${PATH}" \
-    CTAN_MIRROR="https://mirror.aria-on-the-planet.es/CTAN/"
+    CTAN_MIRROR="https://ftp.jaist.ac.jp/pub/CTAN"
 
 RUN <<EOT
 apt-get update

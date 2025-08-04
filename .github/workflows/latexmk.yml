@@ -48,6 +48,7 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v6
+        timeout-minutes: 720
         with:
           context: ./
           file: ./${{ env.build_file }}
